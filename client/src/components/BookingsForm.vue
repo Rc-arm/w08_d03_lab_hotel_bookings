@@ -25,7 +25,7 @@ export default {
     return {
       name: null,
       email: null,
-      status: false
+      status: true
     }
   },
   methods: {

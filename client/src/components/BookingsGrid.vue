@@ -5,7 +5,7 @@
       <ul>
         <li>Name: {{ booking.name }}</li>
         <li>Email: {{ booking.email }}</li>
-        <li>Status: {{ booking.status }}</li>
+        <li>Check-in Status: {{ booking.status }}</li>
       </ul>
       <button id="delete-button" v-on:click="deleteBooking(booking._id)">Delete Booking</button>
       <!-- <li v-for="(item, index) in items"
