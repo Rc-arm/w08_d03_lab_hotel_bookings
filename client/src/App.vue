@@ -24,9 +24,20 @@ export default {
     'bookings-grid': BookingsGrid
   },
   mounted(){
-    fetch("http://localhost:3000/")
-      .then(response => response.json())
-      .then(json => this.serverMessage = json.message);
+    this.fetchData();
+    eventBus.$on('booking-added', res => {
+      this.bookings.push(res)
+    });
+    eventBus.$on('booking-deleted', id => {
+      const index = this.bookings.findIndex(booking => booking._id === id)
+      this.bookings.splice(index, 1)
+    });
+  },
+  methods: {
+    fetchData(){
+      BookingService.getBookings()
+      .then(bookings => this.bookings = bookings);
+    }
   }
 };
 </script>
