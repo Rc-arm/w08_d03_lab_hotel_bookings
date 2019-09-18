@@ -1,19 +1,29 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1>My Hotel App</h1>
+    <p v-if="serverMessage">The server said: {{ serverMessage }}</p>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from './components/HelloWorld.vue';
 
 export default {
   name: 'app',
   components: {
     HelloWorld
+  },
+  mounted(){
+    fetch("http://localhost:3000/")
+      .then(response => response.json())
+      .then(json => this.serverMessage = json.message);
+  },
+  data () {
+    return {
+      serverMessage: ""
+    }
   }
-}
+};
 </script>
 
 <style>
