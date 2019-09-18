@@ -10,13 +10,14 @@
       <input type="text" id="email" v-model="email" required/>
     </div>
 
-    <input type="submit" value="Save" id="save"/>
+    <input type="submit" value="Add Booking" id="add-booking"/>
 
   </form>
 </template>
 
 <script>
-
+import { eventBus } from '../main';
+import BookingService from '../services/BookingService.js';
 
 export default {
   name: "bookings-form",
@@ -35,7 +36,8 @@ export default {
         email: this.email,
         status: this.status
       }
-      // BookingService
+      BookingService.postBooking(booking)
+      .then(res => eventBus.$emit('booking-added', res))
     }
   }
 }
