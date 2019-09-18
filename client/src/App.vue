@@ -1,27 +1,32 @@
 <template>
   <div id="app">
     <h1>My Hotel App</h1>
-    <p v-if="serverMessage">The server said: {{ serverMessage }}</p>
+    <bookings-form />
+    <bookings-grid :bookings="bookings" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue';
+import BookingsForm from './components/BookingsForm';
+import BookingsGrid from './components/BookingsGrid';
+import BookingService from './services/BookingService';
+import { eventBus } from './main';
 
 export default {
   name: 'app',
+  data () {
+    return {
+      bookings: []
+    }
+  },
   components: {
-    HelloWorld
+    'bookings-form': BookingsForm,
+    'bookings-grid': BookingsGrid
   },
   mounted(){
     fetch("http://localhost:3000/")
       .then(response => response.json())
       .then(json => this.serverMessage = json.message);
-  },
-  data () {
-    return {
-      serverMessage: ""
-    }
   }
 };
 </script>
